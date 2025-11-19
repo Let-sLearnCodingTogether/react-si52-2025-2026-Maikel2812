@@ -8,11 +8,11 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", api);
 
-//app.get("/", (req, res) => {
-//  res.status(200).json({
-//    message: "OK",
-//  });
-//});
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "OK",
+  });
+});
 
 app.listen("3000", () => {
   database();
