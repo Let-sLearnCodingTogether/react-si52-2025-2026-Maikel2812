@@ -1,10 +1,15 @@
-import { NavLink } from "react-router"
+import { NavLink } from "react-router";
+import Button from "react-bootstrap/Button";
 
-function AddMovie(){
+function AddMovie() {
     return <div>
-        <h2>Movie Page</h2>
-        <NavLink to = "/"className="btn btn-primary">List Movie</NavLink>
+        <div>
+        <h2>Add Movie Page</h2>
+        <NavLink to="/">Movie Page</NavLink>
+        </div>
+        <Button variant="btn btn-primary"> List Movie </Button>
     </div>
+    
 }
 
-export default AddMovie
+export default AddMovie;
