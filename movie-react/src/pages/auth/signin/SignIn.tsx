@@ -1,17 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
-import { Button, Form } from "react-bootstrap"
 import ApiClient from "../../../utils/ApiClient"
-import { NavLink } from "react-router"
+import { Button, Form } from "react-bootstrap"
 
-interface SignUpForm{
-    username : string,
+interface SignInForm{
     email : string,
     password : string
 }
-
-function SignUp(){
-    const [form, setForm] = useState<SignUpForm>({
-        username : "",
+function SignIn(){
+     const [form, setForm] = useState<SignInForm>({
         email : "",
         password : ""
     })
@@ -31,7 +27,7 @@ function SignUp(){
         try {
             const response = await ApiClient.post("/signup", form)
 
-            console.log(response);
+            console.log(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -40,21 +36,12 @@ function SignUp(){
     return <div className="container mx-auto">
         <h1>Sign Up</h1>
         <Form onSubmit={onSubmit}>
-        <Form>
-            <Form.Group className ="mb-3" controlId="formUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                    value={form.username}
-                    name ="username" 
-                    type="text"
-                    placeholder="Username"/>
-            </Form.Group>
             <Form.Group  className ="mb-3" controlId="formEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                     value={form.email}
                     name ="email" 
-                    type="text"
+                    type="password"
                     placeholder="Email"/>
             </Form.Group>
             <Form.Group className ="mb-3" controlId="formPassword">
@@ -67,11 +54,8 @@ function SignUp(){
                     placeholder="Password"/>
             </Form.Group>
             <Button type="submit" variant="primary">Signup</Button>
-            <NavLink to="/signin">Sign In</NavLink>
-        </Form>
-    </Form>
+         </Form>
         </div>
-    
 }
 
-export default SignUp
+export default SignIn
