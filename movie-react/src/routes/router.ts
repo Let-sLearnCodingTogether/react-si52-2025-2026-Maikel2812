@@ -2,28 +2,43 @@ import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
     {
-        path : "/", // alamat dari sebuah page
+        path : "/",
         children : [
             {
                 index : true,
                 lazy : {
-                    Component : async() => {
-                        const Component = await import("../pages/movies/Movies.tsx")
-                        return Component.default
+                    Component : async () => {
+                        const component = await import("../pages/auth/signup/SignUp.tsx")
+                        return component.default
                     }
                 }
-            },
-            {
-                path : "add-movie",
-                    lazy : {
-                    Component : async() => {
-                        const Component = await import("../pages/movies/AddMovie.tsx")
-                        return Component.default
-                    }
-                }
-            },
+            }
         ]
-    }
-]);
+    },
+{
+    path : "/movies", //alamat dari sebuah page
+    children : [
+        {
+            index : true,
+            lazy : {
+                Component : async() => {
+                    const component = await import("../pages/movies/Movies.tsx")
+                    return component.default
+                }
+                
+            }
+        },
+        {
+            path : "add-movie",
+            lazy : {
+                Component : async() => {
+                    const component = await import("../pages/movies/AddMovie.tsx")
+                    return component.default
+                }
+            }
+        }
+    ]
+}
+])
 
-export default router;
+export default router 
