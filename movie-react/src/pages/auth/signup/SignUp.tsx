@@ -31,7 +31,7 @@ function SignUp(){
         try {
             const response = await ApiClient.post("/signup", form)
 
-            console.log(response);
+            console.log(response.data);
         } catch (error) {
             console.log(error);
         }
@@ -40,11 +40,11 @@ function SignUp(){
     return <div className="container mx-auto">
         <h1>Sign Up</h1>
         <Form onSubmit={onSubmit}>
-        <Form>
             <Form.Group className ="mb-3" controlId="formUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                     value={form.username}
+                    onChange={onHandleChange}
                     name ="username" 
                     type="text"
                     placeholder="Username"/>
@@ -53,6 +53,7 @@ function SignUp(){
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                     value={form.email}
+                    onChange={onHandleChange}
                     name ="email" 
                     type="text"
                     placeholder="Email"/>
@@ -69,7 +70,6 @@ function SignUp(){
             <Button type="submit" variant="primary">Signup</Button>
             <NavLink to="/signin">Sign In</NavLink>
         </Form>
-    </Form>
         </div>
     
 }

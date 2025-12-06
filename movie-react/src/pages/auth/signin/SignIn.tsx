@@ -1,13 +1,16 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import ApiClient from "../../../utils/ApiClient"
 import { Button, Form } from "react-bootstrap"
+import { useNavigate } from "react-router"
 
 interface SignInForm{
     email : string,
     password : string
 }
 function SignIn(){
-     const [form, setForm] = useState<SignInForm>({
+    const navigate = useNavigate()
+    const [isLoading, setIsLoading] =useState(false)
+    const [form, setForm] = useState<SignInForm>({
         email : "",
         password : ""
     })
@@ -23,13 +26,20 @@ function SignIn(){
 
     const onSubmit = async (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
+        setIsLoading(true)
         try {
             const response = await ApiClient.post("/signup", form)
-
             console.log(response.data);
+            if(response.status ===200){
+                navigate ("/movies",{
+                    replace : true
+                })
+
+            }
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -40,6 +50,7 @@ function SignIn(){
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                     value={form.email}
+                    onChange={onHandleChange}
                     name ="email" 
                     type="password"
                     placeholder="Email"/>
@@ -53,7 +64,12 @@ function SignIn(){
                     type="password"
                     placeholder="Password"/>
             </Form.Group>
-            <Button type="submit" variant="primary">Signup</Button>
+            <Button 
+            type="submit" 
+            variant="primary"
+            disabled ={isLoading}>
+            {isLoading ? "Loading...": "Sign In"}
+            </Button>
          </Form>
         </div>
 }
